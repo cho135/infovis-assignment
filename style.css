@@ -1,0 +1,21 @@
+#gdp-mortality-scatterplot {
+    max-width: 60%;
+    height: 350px;
+    max-height: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+#scatter-section {
+    width: 100%;
+    height: 30%;
+}
+
+#scatterplot-chart {
+    width: 100%;
+    height: 70%;
+}
+
+#scatterplot-chart svg {
+    width: 100%;
+    display: block; }

@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>InfoVis Assignment</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+    <body>
+        <header>
+            <h1>Child Mortality</h1>
+            <p class="subtitle">Which factors are most strongly associated with child mortality rates across different countries?</p>
+        </header>
+        <div id="gdp-mortality-scatterplot">
+            <div id="scatter-section">
+                <div class="section-intro">
+                    <h2>GDP per Capita vs. Child Mortality Rate</h2>
+                    <p>Does a country's wealth determine how many children survive? Select countries to trace their journey over time.</p>
+                </div>
 
-</body>
+                <div class="controls">
+                    <label for="country-select">Add a country:</label>
+                    <select id="country-select">
+                        <option value="">— select —</option>
+                    </select>
+                    <button id="clear-btn">Clear all</button>
+                </div>
+
+            </div>
+            <div id="scatterplot-chart"></div>
+        </div>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="main.js"></script>
+    </body>
 </html>
