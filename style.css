@@ -1,6 +1,11 @@
+body {
+    background-color: white;
+}
+
+
 #gdp-mortality-scatterplot {
-    max-width: 60%;
-    height: 350px;
+    max-width: 50%;
+    height: 450px;
     max-height: 100%;
     margin: 0 auto;
     padding: 2rem;
@@ -14,8 +19,91 @@
 #scatterplot-chart {
     width: 100%;
     height: 70%;
+    position: relative;
 }
 
 #scatterplot-chart svg {
     width: 100%;
     display: block; }
+
+#line-container {
+    stroke-width: 2px;
+}
+
+#legend-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.country-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.remove-btn {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#tooltip {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    pointer-events: auto;
+    font-family: sans-serif;
+    font-size: 13px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+    line-height: 1.4;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+.trend-line:hover {
+    stroke-width: 4px;
+    cursor: pointer;
+    transition: stroke-width 0.1s ease;
+}
+
+
+.tooltip-divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08); /* Sehr dezentes Grau */
+    margin: 12px 0 10px 0;
+}
+
+#view-sanitation-btn {
+    display: inline-block;
+    width: 100%;
+    background-color: #f4f4f5;
+    color: #666;
+    border: 1px solid #e4e4e7;
+    padding: 6px 6px;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+#view-sanitation-btn:hover {
+    background-color: #000;
+    border-color: #d4d4d8;
+    color: #ccc;
+}
