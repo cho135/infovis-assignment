@@ -58,7 +58,8 @@ function initScatterplot() {
         .attr("x", scatterWidth / 2)
         .attr("y", scatterHeight + scatterMargin.bottom - 15)
         .attr("text-anchor", "middle")
-        .text("GDP per capita");
+        .text("GDP per capita in international $")
+        .style("fill", "#2b2b2b");
 
     // y-axis text
     scatterSvg.append("text")
@@ -67,7 +68,8 @@ function initScatterplot() {
         .attr("x", -scatterHeight / 2)
         .attr("y", -scatterMargin.left + 25)
         .attr("text-anchor", "middle")
-        .text("Mortality rate");
+        .text("Mortality rate in %")
+        .style("fill", "#2b2b2b");;
 
 
     // title
@@ -76,7 +78,7 @@ function initScatterplot() {
         .attr("x", scatterWidth / 2)
         .attr("y", -scatterMargin.top + 20)
         .attr("text-anchor", "middle")
-        .text("Under-five mortality rate (per 1,000 live births) vs. GDP per capita (Log Scale) in international $");
+        .text("Under-five mortality rate (per 1,000 live births) vs. GDP per capita");
 }
 
 // renders line of a country

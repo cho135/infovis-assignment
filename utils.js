@@ -19,7 +19,18 @@ const SAMPLE_RATE = 1;
 const DATA_SIZE_THRESHOLD = 50;
 const MAX_COUNTRY_NUMBER_SCATTER= 8;
 const START_YEAR = 1900;
+const END_YEAR = 2020;
+const SANITATION_STAT_START = 2000; // data only available for year >= 2000
 
+
+const SANITATION_COLORS = [
+    "#d7191c",
+    "#fdae61",
+    "#ffffbf",
+    "#abd9e9",
+    "#2c7bb6",
+];
+const MAX_VIEWS = 3;
 
 // assigns colors to country, assigns colors twice when max of eight colors reached
 function getColor(country) {
@@ -57,6 +68,88 @@ function joinData(country, otherData, otherColumn) {
             }
         });
     return result;
+}
+
+function mergeMortalitySanitation(country) {
+    const rawMortality = mortalityData.filter(d =>
+        d["Entity"] === country &&
+        +d["Year"] >= SANITATION_STAT_START && +d["Year"] <= END_YEAR
+    );
+
+    const rawSanitation = sanitationData.filter(d =>
+        d["Entity"] === country &&
+        +d["Year"] >= SANITATION_STAT_START && +d["Year"] <= END_YEAR
+    );
+
+    let mergedCountryData = [];
+
+    for (let i = SANITATION_STAT_START; i <= END_YEAR; i++) {
+
+        const mortEntry = rawMortality.find(d => +d["Year"] === i);
+        const sanEntry = rawSanitation.find(d => +d["Year"] === i);
+
+        if (mortEntry || sanEntry) {
+            mergedCountryData.push({
+                year: i,
+                mortality: mortEntry ? +mortEntry["Under-five mortality rate (selected)"]: 0,
+                safelyManaged: sanEntry ? +sanEntry["Safely managed"] : 0,
+                basic:         sanEntry ? +sanEntry["Basic"] : 0,
+                limited:       sanEntry ? +sanEntry["Limited"] : 0,
+                unimproved:    sanEntry ? +sanEntry["Unimproved"] : 0,
+                openDefecation: sanEntry ? +sanEntry["No access (open defecation)"] : 0,
+            });
+        }
+    }
+    console.log(mergedCountryData)
+    return mergedCountryData;
+}
+
+
+function renderDynamicLegend() {
+    const keys = ["openDefecation", "unimproved", "limited", "basic", "safelyManaged"];
+    const labels = [
+        "Safely managed",
+        "Basic",
+        "Limited",
+        "Unimproved",
+        "Open defecation",
+    ];
+
+    const legendContainer = d3.select("#sanitation-legend");
+
+
+    keys.forEach((key, index) => {
+        const item = legendContainer.append("div")
+            .attr("class", "legend-item");
+
+        item.append("span")
+            .attr("class", "color-box")
+            .style("background-color", SANITATION_COLORS[index])
+            .style("border", index === 2 ? "1px solid #d4d4d8" : "none"); // border for unimproved
+
+        item.append("text")
+            .text(labels[index]);
+    });
+
+    const lineLegend = legendContainer.append("div")
+        .attr("class", "legend-item")
+
+    const lineBox = lineLegend.append("span")
+        .attr("class", "color-box")
+        .style("background-color", "#fff")
+
+        .style("display", "inline-flex")
+        .style("align-items", "center")
+        .style("padding", "0 1px");
+
+    lineBox.append("span")
+        .style("display", "block")
+        .style("width", "100%")
+        .style("height", "2px")
+        .style("background-color", "black");
+
+    lineLegend.append("text")
+        .text("Mortality rate");
 }
 
 

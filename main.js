@@ -1,6 +1,17 @@
 // TODO:
-//  Sanitation statistic
-//  kommentare, funktionenberschreibungen
+//  Sanitation statistic:
+//      button connection !!!
+//      hover function
+//      delete buttons !!!
+//      country tags !!!
+//      overflow
+//  Scatterplot:
+//      pfeilköpfe
+//      legende !!!
+//      adaptable sample step size
+//  allgemein:
+//      header polishen !!!
+//      kommentare, funktionenberschreibungen
 //
 
 function removeCountry(country) {
@@ -37,13 +48,13 @@ Promise.all([
     healthInsuranceData = insuranceRaw;
 
     initScatterplot();
+    renderDynamicLegend();
     scatterplotCountries.forEach(el => {
         renderScatterplot(el);
     })
 
-    renderSanitationStatistic("France")
-    renderSanitationStatistic("Afghanistan")
-    renderSanitationStatistic("Germany")
-    renderSanitationStatistic("United States")
+    renderSanitationStatistic("Benin")
+    renderSanitationStatistic("Democratic Republic of Congo")
+    renderSanitationStatistic("Cameroon")
 });
 

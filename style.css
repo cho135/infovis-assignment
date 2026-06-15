@@ -28,15 +28,35 @@ header {
 #sanitation-section {
     grid-column: 1;
     grid-row: 2;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.global-y-label {
+    width: 2%;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
 }
 
 #sanitation-views {
+    width: 73%;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     overflow: hidden;
+}
+
+#sanitation-views div[id^="view-"] {
+    width: 33%;
+    aspect-ratio: 1 / 1;
 }
 
 #butterfly-chart {
@@ -44,6 +64,24 @@ header {
     grid-row: 1 / span 2;
     margin: 0 auto;
     padding: 2rem;
+}
+
+#sanitation-legend {
+    width: 25%;
+    height: 100%;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.color-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
 }
 
 #gdp-mortality-scatterplot {
