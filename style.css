@@ -5,7 +5,7 @@
 body {
     background-color: white;
     margin: 0;
-
+    font-family: sans-serif;
 }
 
 header {
@@ -51,12 +51,24 @@ header {
     width: 73%;
     display: flex;
     flex-wrap: wrap;
-    overflow: hidden;
+    overflow: visible;
+}
+
+#sanitation-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #a1a1aa;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #sanitation-views div[id^="view-"] {
     width: 33%;
     aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: visible;
 }
 
 #butterfly-chart {
@@ -69,6 +81,7 @@ header {
 #sanitation-legend {
     width: 25%;
     height: 100%;
+    font-size: 14px;
 }
 
 .legend-item {
@@ -88,7 +101,7 @@ header {
     grid-column: 1;
     grid-row: 1;
     margin: 0 auto;
-    padding: 0rem 2rem 0rem 2rem;
+    padding: 0 2rem 0 0;
 
     display: grid;
     grid-template-columns: 9fr 1fr;
@@ -107,11 +120,6 @@ header {
     padding: 0;
 }
 
-.controls {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-}
-
 #scatterplot-chart {
     grid-column: 1;
     grid-row: 2;
@@ -126,11 +134,60 @@ header {
     stroke-width: 2px;
 }
 
+.controls {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 8px 0 8px 0;
+    flex-wrap: wrap;
+    font-family: sans-serif;
+}
+
+.controls label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.buttons {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+#country-select {
+    width: 100px;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #0f172a;
+    outline: none;
+    cursor: pointer;
+}
+
+#clear-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
 #legend-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
 }
 
 .country-tag {

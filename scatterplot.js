@@ -133,7 +133,7 @@ function renderScatterplot(country) {
         tag.id = `tag-${country.replace(/\s+/g, '')}`;
         tag.className = "country-tag";
         tag.textContent = country;
-        tag.style.backgroundColor = getColor(country); // Dynamische Farbe zuweisen
+        tag.style.backgroundColor = getColor(country);
 
         const removeBtn = document.createElement("span");
         removeBtn.className = "remove-btn";
@@ -175,6 +175,6 @@ document.addEventListener("click", () => {
 d3.select("#tooltip").on("click", function(event) {
     event.stopPropagation();
     if (event.target.id === "view-sanitation-btn") {
-        console.log("yessa")
+        renderSanitationStatistic(event.target.getAttribute("data-country"))
     }
 });

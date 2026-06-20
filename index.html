@@ -23,10 +23,12 @@
                 </div>
                 <div class="controls">
                     <label for="country-select">Add a country:</label>
-                    <select id="country-select">
-                        <option value="">— select —</option>
-                    </select>
-                    <button id="clear-btn">Clear all</button>
+                    <div class="buttons">
+                        <select id="country-select">
+                            <option value="">— select —</option>
+                        </select>
+                        <button id="clear-btn">Clear</button>
+                    </div>
                     <div id="legend-container"></div>
                 </div>
             </div>
@@ -38,8 +40,15 @@
             </div>
             <div id="sanitation-section">
                 <div class="global-y-label">Share in %</div>
-                <div id="sanitation-views"></div>
-                <div id="sanitation-legend"></div>
+                <div id="sanitation-views">
+                    <p id="sanitation-placeholder">
+                        Select a country's trend line in the scatterplot to view its sanitation statistics here.
+                    </p>
+                </div>
+                <div id="sanitation-legend">
+                    <span><strong>Y-Axis:</strong><br> Share of sanitation categories and child mortality in %</span><br>
+                    <span style="display: block; margin-bottom: 12px;"><strong>X-Axis:</strong> Years</span>
+                </div>
             </div>
         </div>
         <script src="https://d3js.org/d3.v7.min.js"></script>

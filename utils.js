@@ -24,11 +24,12 @@ const SANITATION_STAT_START = 2000; // data only available for year >= 2000
 
 
 const SANITATION_COLORS = [
-    "#d7191c",
-    "#fdae61",
-    "#ffffbf",
-    "#abd9e9",
     "#2c7bb6",
+    "#abd9e9",
+    "#ffffbf",
+    "#fdae61",
+    "#d7191c",
+
 ];
 const MAX_VIEWS = 3;
 
@@ -106,13 +107,13 @@ function mergeMortalitySanitation(country) {
 
 
 function renderDynamicLegend() {
-    const keys = ["openDefecation", "unimproved", "limited", "basic", "safelyManaged"];
+    const keys = ["safelyManaged", "basic", "limited", "unimproved", "openDefecation"];
     const labels = [
-        "Open defecation",
-        "Unimproved",
-        "Limited",
-        "Basic",
         "Safely managed",
+        "Basic",
+        "Limited",
+        "Unimproved",
+        "Open defecation",
     ];
 
     const legendContainer = d3.select("#sanitation-legend");

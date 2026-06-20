@@ -12,16 +12,57 @@ function renderSanitationStatistic(country) {
         alert("Too many views open, close one");
         return;
     }
+
+    const placeholder = d3.select("#sanitation-placeholder");
+    if (!placeholder.empty()) {
+        placeholder.remove();
+    }
+
     const safeId = country.replace(/\s+/g, '');
+
+    // check for doubles
+    if (sanitationCountries.includes(safeId)) {
+        return;
+    }
+
     sanitationCountries.push(safeId);
-    d3.select("#sanitation-views").append("div")
+    const svgContainter = d3.select("#sanitation-views").append("div")
         .attr("id", "view-" + safeId)
+
+    const tag = svgContainter.append("div")
+        .attr("id", `san-tag-${safeId}`)
+        .attr("class", "country-tag")
+        .style("position", "absolute")
+        .style("top", "-15px")
+        .style("left", "50%")
+        .style("transform", "translateX(-40%)")
+        .style("z-index", "10")
+        .style("background-color", getColor(country))
+        .style("white-space", "nowrap");
+
+    tag.text(country);
+
+    tag.append("span")
+        .attr("class", "remove-btn")
+        .text(` ×`)
+        .style("cursor", "pointer")
+        .on("click", () => {
+            svgContainter.remove();
+            sanitationCountries = sanitationCountries.filter(id => id !== safeId);
+            if (sanitationCountries.length === 0) {
+                d3.select("#sanitation-views").append("div")
+                    .attr("id", "sanitation-placeholder")
+                    .text("Select a country's trend line in the scatterplot to view its sanitation statistics here.");
+            }
+        });
 
 
     const viewContainer = document.getElementById("view-" + safeId).getBoundingClientRect(); // force exact calculation
     const width = viewContainer.width;
     const height = width;
 
+
+    // prepare plot
     const svg = d3.select("#view-" + safeId).append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -57,7 +98,7 @@ function renderSanitationStatistic(country) {
     // join mortality on sanitation data
     const mortalitySanitationData = mergeMortalitySanitation(country)
 
-    // stacked area chart
+    // draw stacked area chart
     const keys = ["openDefecation", "unimproved", "limited", "basic", "safelyManaged"];
 
     const stack = d3.stack()
@@ -67,7 +108,7 @@ function renderSanitationStatistic(country) {
 
     const colorScale = d3.scaleOrdinal()
         .domain(keys)
-        .range(SANITATION_COLORS)
+        .range([...SANITATION_COLORS].reverse())
 
     const areaGenerator = d3.area()
         .x(d => xScaleSanitation(d.data.year))

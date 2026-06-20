@@ -1,18 +1,12 @@
 // TODO:
 //  Sanitation statistic:
-//      button connection !!!
 //      hover function
-//      delete buttons !!!
-//      country tags !!!
-//      legende anpassen !!!!!
 //      overflow
 //      "no data" legend tag
 //  Scatterplot:
 //      pfeilköpfe
-//      legende !!!
 //      adaptable sample step size
 //  allgemein:
-//      header polishen !!!
 //      kommentare, funktionenberschreibungen
 //
 
@@ -55,9 +49,5 @@ Promise.all([
     scatterplotCountries.forEach(el => {
         renderScatterplot(el);
     })
-
-    renderSanitationStatistic("Benin")
-    renderSanitationStatistic("Democratic Republic of Congo")
-    renderSanitationStatistic("Cameroon")
 });
 
