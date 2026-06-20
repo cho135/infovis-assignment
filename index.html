@@ -30,7 +30,12 @@
                     <div id="legend-container"></div>
                 </div>
             </div>
-            <div id="butterfly-chart"></div>
+            <div id="butterfly-chart">
+                <div id="butterfly-chart-svg"></div>
+                <div class="slidecontainer">
+                    <input type="range" min="1995" max="2011" value="50" class="slider" id="yearSlider">
+                </div>
+            </div>
             <div id="sanitation-section">
                 <div class="global-y-label">Share in %</div>
                 <div id="sanitation-views"></div>
@@ -41,6 +46,7 @@
         <script src="utils.js"></script>
         <script src="scatterplot.js"></script>
         <script src="sanitationView.js"></script>
+        <script src="butterflyChart.js"></script>
         <script src="main.js"></script>
     </body>
 </html>
