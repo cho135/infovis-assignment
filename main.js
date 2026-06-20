@@ -48,6 +48,7 @@ Promise.all([
     healthInsuranceData = insuranceRaw;
 
     initScatterplot();
+    initButterflyChart();
     renderDynamicLegend();
     scatterplotCountries.forEach(el => {
         renderScatterplot(el);
