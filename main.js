@@ -4,7 +4,9 @@
 //      hover function
 //      delete buttons !!!
 //      country tags !!!
+//      legende anpassen !!!!!
 //      overflow
+//      "no data" legend tag
 //  Scatterplot:
 //      pfeilköpfe
 //      legende !!!

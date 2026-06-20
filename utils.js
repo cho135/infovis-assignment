@@ -108,11 +108,11 @@ function mergeMortalitySanitation(country) {
 function renderDynamicLegend() {
     const keys = ["openDefecation", "unimproved", "limited", "basic", "safelyManaged"];
     const labels = [
-        "Safely managed",
-        "Basic",
-        "Limited",
-        "Unimproved",
         "Open defecation",
+        "Unimproved",
+        "Limited",
+        "Basic",
+        "Safely managed",
     ];
 
     const legendContainer = d3.select("#sanitation-legend");
