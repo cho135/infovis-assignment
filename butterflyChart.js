@@ -42,7 +42,60 @@ function updateButterflyChart(xLeft, xRight, updatedData) {
   .attr("alignment-baseline", "middle")
   .attr("x", butterflyWidth / 2)
   .attr("y", d => y(d["Entity"]) + y.bandwidth() / 2)
-  .text(d => d["Entity"]);
+  .text(d => d["Entity"])
+  .on("mouseover", function(event, d) {
+    d3.select(this).style("font-weight", "bold");
+    butterflySvg.append("text")
+      .attr("class", "butterfly-bars-text-overlay")
+      .attr("x", butterflyWidth / 2 - centerOffset - 2)
+      .attr("y", y(d["Entity"]) + y.bandwidth() / 2 + 6)
+      .attr("text-anchor", "end")
+      .text(`${d["Insurance"]}%`);
+
+    butterflySvg.append("text")
+        .attr("class", "butterfly-bars-text-overlay")
+        .attr("x", butterflyWidth / 2 + centerOffset + 2)
+        .attr("y", y(d["Entity"]) + y.bandwidth() / 2 + 6)
+        .attr("text-anchor", "start")
+        .text(`${d["Mortality"]}%`);
+  })
+  .on("mouseleave", function() {
+    if (d3.select(this).classed("pinned")) return;
+
+    d3.select(this).style("font-weight", "normal");
+    butterflySvg.selectAll(".butterfly-bars-text-overlay:not(.pinned)").remove();
+  })
+  .on("click", function(event, d) {
+    const label = d3.select(this);
+    const isPinned = label.classed("pinned");
+
+    butterflySvg.selectAll(".label")
+      .classed("pinned", false)
+      .style("font-weight", "normal");
+    butterflySvg.selectAll(".butterfly-bars-text-overlay").remove();
+    butterflySvg.selectAll(".butterfly-bars-text-overlay.pinned").remove();
+
+    if (isPinned) {
+
+    } else {
+      label.classed("pinned", true);
+      label.style("font-weight", "bold");
+
+      butterflySvg.append("text")
+          .attr("class", "butterfly-bars-text-overlay pinned")
+          .attr("x", butterflyWidth / 2 - centerOffset - 2)
+          .attr("y", y(d["Entity"]) + y.bandwidth() / 2 + 6)
+          .attr("text-anchor", "end")
+          .text(`${d["Insurance"]}%`);
+
+      butterflySvg.append("text")
+          .attr("class", "butterfly-bars-text-overlay pinned")
+          .attr("x", butterflyWidth / 2 + centerOffset + 2)
+          .attr("y", y(d["Entity"]) + y.bandwidth() / 2 + 6)
+          .attr("text-anchor", "start")
+          .text(`${d["Mortality"]}%`);
+    }
+  });
   return y;
 }
 

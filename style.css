@@ -1,5 +1,8 @@
 *, *::before, *::after {
     box-sizing: border-box;
+    user-select: none;
+    -webit-user-select: none;
+    -moz-user-select: none;
 }
 
 body {
@@ -91,6 +94,22 @@ footer {
 
 #butterfly-chart-svg {
     text-align: center;
+}
+
+#butterfly-chart-svg text.label {
+    cursor: pointer;
+}
+
+.butterfly-bars-text-overlay {
+    fill: white;
+    font-weight: bold;
+    pointer-events: none;
+
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .slidecontainer {
