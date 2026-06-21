@@ -3,8 +3,48 @@ const centerOffset = 50
 const butterflyMargin = { top: 50, right: 30, bottom: 30, left: 30};
 let butterFlyDefaultCountries = ["Aruba", "Niger", "Saint Lucia", "Yemen", "Bangladesh"];
 let butterFlyData = []
-let renderedData = []
 
+
+function updateButterflyChart(xLeft, xRight, updatedData) {
+  const y = d3.scaleBand()
+  .domain(updatedData.map(d => d["Entity"]))
+  .range([butterflyMargin.top, butterflyHeight - butterflyMargin.bottom])
+  .padding(0.2);
+
+  // 3. Draw Left Bars
+  butterflySvg.selectAll(".bar-left")
+  .data(updatedData, d => d["Entity"])
+  .join("rect")
+  .attr("class", "bar-left")
+  .attr("fill", "steelblue")
+  .attr("x", d => xLeft(d["Insurance"]))
+  .attr("y", d => y(d["Entity"]))
+  .attr("width", d => xLeft(0) - xLeft(d["Insurance"]))
+  .attr("height", y.bandwidth());
+
+  // 4. Draw Right Bars
+  butterflySvg.selectAll(".bar-right")
+  .data(updatedData, d => d["Entity"])
+  .join("rect")
+  .attr("class", "bar-right")
+  .attr("fill", "crimson")
+  .attr("x", xRight(0))
+  .attr("y", d => y(d["Entity"]))
+  .attr("width", d => xRight(d["Mortality"]) - xRight(0))
+  .attr("height", y.bandwidth());
+
+  // 5. Draw Central Labels
+  butterflySvg.selectAll(".label")
+  .data(updatedData, d => d["Entity"])
+  .join("text")
+  .attr("class", "label")
+  .attr("text-anchor", "middle")
+  .attr("alignment-baseline", "middle")
+  .attr("x", butterflyWidth / 2)
+  .attr("y", d => y(d["Entity"]) + y.bandwidth() / 2)
+  .text(d => d["Entity"]);
+  return y;
+}
 
 function initButterflyChart() {
   //data setup
@@ -20,7 +60,7 @@ function initButterflyChart() {
     }
   }
 
-  renderedData = butterFlyData.filter(d => d.Year == 2009)
+  const renderedData = butterFlyData.filter(d => d.Year === 2009).sort((a, b) => a.Mortality - b.Mortality)
 
   const container = document.getElementById("butterfly-chart-svg");
   //ToDo: Fix container size loading
@@ -41,47 +81,10 @@ function initButterflyChart() {
   .range([butterflyWidth / 2 - centerOffset, butterflyMargin.left]);
 
   const xRight = d3.scaleLinear()
-  .domain([0, 100])
+  .domain([0, 40])
   .range([butterflyWidth / 2 + centerOffset, butterflyWidth - butterflyMargin.right]);
 
-  const y = d3.scaleBand()
-  .domain(renderedData.map(d => d["Entity"]))
-  .range([butterflyMargin.top, butterflyHeight - butterflyMargin.bottom])
-  .padding(0.2);
-
-  // 3. Draw Left Bars
-  butterflySvg.selectAll(".bar-left")
-  .data(renderedData)
-  .enter().append("rect")
-  .attr("class", "bar-left")
-  .attr("x", d => xLeft(d["Insurance"]))
-  .attr("y", d => y(d["Entity"]))
-  .attr("width", d => xLeft(0) - xLeft(d["Insurance"]))
-  .attr("height", y.bandwidth())
-  .attr("fill", "steelblue");
-
-  // 4. Draw Right Bars
-  butterflySvg.selectAll(".bar-right")
-  .data(renderedData)
-  .enter().append("rect")
-  .attr("class", "bar-right")
-  .attr("x", xRight(0))
-  .attr("y", d => y(d["Entity"]))
-  .attr("width", d => xRight(d["Mortality"]) - xRight(0))
-  .attr("height", y.bandwidth())
-  .attr("fill", "crimson");
-
-  // 5. Draw Central Labels
-  butterflySvg.selectAll(".label")
-  .data(renderedData)
-  .enter().append("text")
-  .attr("x", butterflyWidth / 2)
-  .attr("y", d => y(d["Entity"]) + y.bandwidth() / 2)
-  .attr("text-anchor", "middle")
-  .attr("alignment-baseline", "middle")
-  .text(d => d["Entity"]);
-
-
+  const y = updateButterflyChart(xLeft, xRight, renderedData);
 
   //axis above the chart
   const axisYPosition = y(renderedData[0]["Entity"]) - 5;
@@ -115,27 +118,16 @@ function initButterflyChart() {
 
   //slider
   var slider = document.getElementById("yearSlider");
-
-// Update the current slider value (each time you drag the slider handle)
+  var output = document.getElementById("selectedYear");
+  output.innerHTML = slider.value;
   slider.oninput = function() {
-    //ToDo: implement correct data updates
-    console.log(this.value);
-    renderedData = butterFlyData.filter(d => d.Year == this.value)
-    console.log(renderedData)
+    output.innerHTML = this.value;
+    const renderedData = butterFlyData.filter(d => d.Year == this.value).sort((a, b) => a.Mortality - b.Mortality)
+    if (renderedData.length === 0) {
+      output.innerHTML = this.value + " - no data available";
+    }
+    updateButterflyChart(xLeft, xRight, renderedData)
+
   }
 }
 
-function setupDefaultData(year) {
-  for (const country of butterFlyDefaultCountries) {
-    let mortalityDataEntry = mortalityData.find(item => item && item.Entity === country && item.Year == year)
-    console.log(mortalityDataEntry)
-    let insuranceDataEntry = healthInsuranceData.find(item => item && item.Entity === country && item.Year == year)
-    console.log(insuranceDataEntry)
-    butterFlyData.push(
-        {
-          Entity: country,
-          Insurance: insuranceDataEntry?.["Share of population covered by health insurance (ILO (2014))"] ?? 0,
-          Mortality: mortalityDataEntry?.["Under-five mortality rate (selected)"] ?? 0
-        })
-  }
-}
