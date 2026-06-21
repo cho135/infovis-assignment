@@ -101,6 +101,7 @@ function renderScatterplot(country) {
         .attr("id", `line-${country.replace(/\s+/g, '')}`)
         .attr("class", "trend-line")
         .attr("stroke", getColor(country))
+        .attr("stroke-width", "3px")
         .on("click", function(event) { // add tooltip on click
             event.stopPropagation();
 
