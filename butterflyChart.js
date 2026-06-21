@@ -3,7 +3,7 @@ const centerOffset = 90
 const butterflyMargin = { top: 50, right: 30, bottom: 30, left: 30};
 let butterFlyDefaultCountries = ["Aruba", "Niger", "Saint Lucia", "Yemen", "Bangladesh"];
 let butterFlyData = []
-
+let _xLeft, _xRight;
 
 function updateButterflyChart(xLeft, xRight, updatedData) {
   const y = d3.scaleBand()
@@ -137,6 +137,10 @@ function initButterflyChart() {
   .domain([0, 40])
   .range([butterflyWidth / 2 + centerOffset, butterflyWidth - butterflyMargin.right]);
 
+  // store for global access
+  _xLeft = xLeft;
+  _xRight = xRight;
+
   const y = updateButterflyChart(xLeft, xRight, renderedData);
 
   //axis above the chart
@@ -158,7 +162,6 @@ function initButterflyChart() {
   .attr("transform", `translate(0, ${axisYPosition})`)
   .call(xAxisRight);
 
-
   // title
   butterflySvg.append("text")
   .attr("class", "chart-title")
@@ -166,8 +169,6 @@ function initButterflyChart() {
   .attr("y", 20)
   .attr("text-anchor", "middle")
   .text("");
-
-
 
   //slider
   var slider = document.getElementById("yearSlider");

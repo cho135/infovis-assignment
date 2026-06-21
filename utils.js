@@ -21,6 +21,23 @@ const MAX_COUNTRY_NUMBER_SCATTER= 8;
 const START_YEAR = 1900;
 const END_YEAR = 2020;
 const SANITATION_STAT_START = 2000; // data only available for year >= 2000
+const DATA_PRESETS = {
+    PRESET_1: {
+        countries: ["Germany", "United States", "China"],
+        sanitationCountries: ["Germany", "United States", "China"],
+        butterflyChartYear: 2010,
+    },
+    PRESET_2: {
+        countries: ["Austria", "Hungary", "Italy"],
+        sanitationCountries: ["Austria", "Hungary", "Italy"],
+        butterflyChartYear: 2010,
+    },
+    PRESET_3: {
+        countries: ["Brazil", "Philippines", "Burundi"],
+        sanitationCountries: ["Brazil", "Philippines", "Burundi"],
+        butterflyChartYear: 2009,
+    }
+}
 
 
 const SANITATION_COLORS = [
@@ -153,5 +170,35 @@ function renderDynamicLegend() {
         .text("Mortality rate");
 }
 
+function loadDataPreset(presetID) {
+    const settings = DATA_PRESETS[presetID];
+    if (!settings) return;
 
+    // Clear old data
+    [...scatterplotCountries].forEach(country => {
+        removeCountry(country);
+    });
+    scatterplotCountries = [];
+    sanitationCountries = [];
+    d3.select("#sanitation-views").selectAll("div").remove();
+    d3.select("#sanitation-views").append("div")
+        .attr("id", "sanitation-placeholder")
+        .text("Select a country's trend line in the scatterplot to view its sanitation statistics here.");
+
+    // Load new data
+    settings.countries.forEach(country => {
+        renderScatterplot(country);
+    });
+    settings.sanitationCountries.forEach(country => {
+        renderSanitationStatistic(country);
+    });
+    let sliderElement = document.getElementById("yearSlider");
+    let outputElement = document.getElementById("selectedYear");
+    sliderElement.value = settings.butterflyChartYear;
+    outputElement.innerHTML = settings.butterflyChartYear;
+    const renderedData = butterFlyData.filter(d => d.Year == settings.butterflyChartYear).sort((a, b) => a.Mortality - b.Mortality);
+    updateButterflyChart(_xLeft, _xRight, renderedData);
+
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
 
