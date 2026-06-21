@@ -145,6 +145,8 @@ function initButterflyChart() {
 
   //axis above the chart
   const axisYPosition = y(renderedData[0]["Entity"]) - 5;
+  const labelsYPosition = y(renderedData[0]["Entity"]) - 35;
+
   const xAxisLeft = d3.axisTop(xLeft)
   .ticks(5);
 
@@ -152,6 +154,13 @@ function initButterflyChart() {
   .attr("class", "x-axis-left")
   .attr("transform", `translate(0, ${axisYPosition})`)
   .call(xAxisLeft);
+
+  butterflySvg.append("text")
+  .attr("class", "x-label-left")
+  .attr("text-anchor", "middle")
+  .attr("x", xLeft(50))
+  .attr("y", labelsYPosition)
+  .text("Insurance Coverage in %");
 
   // Right Axis (Mortality)
   const xAxisRight = d3.axisTop(xRight)
@@ -162,13 +171,12 @@ function initButterflyChart() {
   .attr("transform", `translate(0, ${axisYPosition})`)
   .call(xAxisRight);
 
-  // title
   butterflySvg.append("text")
-  .attr("class", "chart-title")
-  .attr("x", butterflyWidth / 2)
-  .attr("y", 20)
+  .attr("class", "x-label-right")
   .attr("text-anchor", "middle")
-  .text("");
+  .attr("x", xRight(20))
+  .attr("y", labelsYPosition)
+  .text("Child Mortality in %");
 
   //slider
   var slider = document.getElementById("yearSlider");
