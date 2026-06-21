@@ -9,75 +9,89 @@
         <header>
             <h1>Child Mortality</h1>
             <p class="subtitle">Which factors are most strongly associated with child mortality rates across different countries?</p>
-            <p>The death of a child is a tragedy no matter how it happened. However there are still places on earth, where this is not an uncommon occurrence.
+            <p>The death of a child is a tragedy no matter how it happened. However, there are still places on earth, where this is not an uncommon occurrence.
                 <br>
                 Understanding what causes a high child mortality rate would help in being able to allocate resources in the most effective ways to utilize their full potential and help in mitigating this widespread issue across the globe.
             </p>
-            <p>The main question and storytelling here in our chosen visualizations is to showcase which efforts and spending are the biggest contributors in combating child mortality rate in multitudes of varying countries across multiple continents.</p>
+            <p>The main question in our chosen visualizations is to showcase which efforts and spending are the biggest contributors in combating child mortality rate in multitudes of varying countries across multiple continents.</p>
+            <button id="start-journey">Start Journey</button>
         </header>
+
         <div id="layout">
-            <div id="gdp-mortality-scatterplot">
-                <div id="scatter-section">
-                    <div class="section-intro">
-                        <h2>GDP per Capita vs. Child Mortality Rate</h2>
-                        <p>Does a country's wealth determine how many children survive? Select countries to trace their journey over time.</p>
-                    </div>
-                </div>
-                <div id="scatterplot-chart">
-                    <div id="tooltip" class="hidden"></div>
-                </div>
-                <div class="controls">
-                    <label for="country-select">Select countries:</label>
-                    <div class="buttons">
-                        <select id="country-select">
-                            <option value="">— select —</option>
-                        </select>
-                        <button id="clear-btn">Clear</button>
-                    </div>
-                    <div id="legend-container"></div>
-                </div>
-            </div>
-
-            <div id="sanitation-section">
-                <div class="section-intro">
-                    <h2>Sanitation Statistics</h2>
-                </div>
-                <div id="sanitation-chart">
-                    <div class="global-y-label">Share in %</div>
-                    <div id="sanitation-views">
-                        <p id="sanitation-placeholder">
-                            Select a country's trend line in the scatterplot to view its sanitation statistics here.
-                        </p>
-                    </div>
-                    <div id="sanitation-legend">
-                        <label>Zoom Y-Axis:</label>
-                        <div class="sanitation-zoom-controls">
-                            <button onclick="sanitationSetZoom(100)">100%</button>
-                            <button onclick="sanitationSetZoom(50)">50%</button>
-                            <button onclick="sanitationSetZoom(25)">25%</button>
-                            <button onclick="sanitationSetZoom(10)">10%</button>
+            <section id="diagram-section-1" class="hidden">
+                <div id="gdp-mortality-scatterplot">
+                    <div id="scatter-section">
+                        <div class="section-intro">
+                            <h2>GDP per Capita vs. Child Mortality Rate</h2>
+                            <p>Does a country's wealth determine how many children survive? Select countries to trace their journey over time.</p>
                         </div>
-
-                        <br>
-
-                        <span><strong>Y-Axis:</strong><br> Share of sanitation categories and child mortality in %</span><br>
-                        <span style="display: block; margin-bottom: 12px;"><strong>X-Axis:</strong> Years</span>
+                    </div>
+                    <div id="scatterplot-chart">
+                        <div id="tooltip" class="hidden"></div>
+                    </div>
+                    <div class="controls">
+                        <label for="country-select">Select countries:</label>
+                        <div class="buttons">
+                            <select id="country-select">
+                                <option value="">— select —</option>
+                            </select>
+                            <button id="clear-btn">Clear</button>
+                        </div>
+                        <div id="legend-container"></div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div id="butterfly-chart">
-                <div class="section-intro">
-                    <h2>Percentage of population covered by health insurance vs child mortality rate</h2>
+            <section id="diagram-section-2" class="hidden">
+                <div id="sanitation-section">
+                    <div class="section-intro">
+                        <h2>Sanitation Statistics</h2>
+                    </div>
+                    <div id="sanitation-chart">
+                        <div class="global-y-label">Share in %</div>
+                        <div id="sanitation-views">
+                            <p id="sanitation-placeholder">
+                                Select a country's trend line in the scatterplot to view its sanitation statistics here.
+                            </p>
+                        </div>
+                        <div id="sanitation-legend">
+                            <label>Zoom Y-Axis:</label>
+                            <div class="sanitation-zoom-controls">
+                                <button onclick="sanitationSetZoom(100)">100%</button>
+                                <button onclick="sanitationSetZoom(50)">50%</button>
+                                <button onclick="sanitationSetZoom(25)">25%</button>
+                                <button onclick="sanitationSetZoom(10)">10%</button>
+                            </div>
+
+                            <br>
+
+                            <span><strong>Y-Axis:</strong><br> Share of sanitation categories and child mortality in %</span><br>
+                            <span style="display: block; margin-bottom: 12px;"><strong>X-Axis:</strong> Years</span>
+                        </div>
+                    </div>
                 </div>
-                <div id="butterfly-chart-svg"></div>
-                <div class="slidecontainer">
-                    <p><b>Year: <span id="selectedYear"></span></b></p>
-                    <label>
-                        <input type="range" min="1995" max="2011" value="2009" class="slider" id="yearSlider" >
-                    </label>
+            </section>
+
+            <section id="diagram-section-3" class="hidden">
+                <div id="butterfly-chart">
+                    <div class="section-intro">
+                        <h2>Percentage of population covered by health insurance vs child mortality rate</h2>
+                    </div>
+                    <div id="butterfly-chart-svg"></div>
+                    <div class="slidecontainer">
+                        <p><b>Year: <span id="selectedYear"></span></b></p>
+                        <label>
+                            <input type="range" min="1995" max="2011" value="2009" class="slider" id="yearSlider" >
+                        </label>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <section id="show-next-button-section" class="hidden">
+                <button id="show-next-button">Show next segment</button>
+            </section>
+
+
 
             <footer>
                 <p>Grundlagen der Visualisierung 2026</p>
@@ -92,6 +106,7 @@
         <script src="scatterplot.js"></script>
         <script src="sanitationView.js"></script>
         <script src="butterflyChart.js"></script>
+        <script src="storytelling.js"></script>
         <script src="main.js"></script>
     </body>
 </html>

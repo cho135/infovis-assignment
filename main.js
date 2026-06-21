@@ -32,22 +32,30 @@ document.getElementById("clear-btn").addEventListener("click", ev => {
 })
 
 // loads data from all datasets into globals
-Promise.all([
-    d3.csv("data/child-mortality.csv"),
-    d3.csv("data/gdp-per-capita.csv"),
-    d3.csv("data/share-of-the-population-with-access-to-sanitation-facilities.csv"),
-    d3.csv("data/health-protection-coverage.csv")
-]).then(([mortalityRaw, gdpRaw, sanitationRaw, insuranceRaw]) => {
-    mortalityData = mortalityRaw;
-    gdpData = gdpRaw;
-    sanitationData = sanitationRaw;
-    healthInsuranceData = insuranceRaw;
+function setupDataAndPlots() {
+    Promise.all([
+        d3.csv("data/child-mortality.csv"),
+        d3.csv("data/gdp-per-capita.csv"),
+        d3.csv(
+            "data/share-of-the-population-with-access-to-sanitation-facilities.csv"),
+        d3.csv("data/health-protection-coverage.csv")
+    ]).then(([mortalityRaw, gdpRaw, sanitationRaw, insuranceRaw]) => {
+        mortalityData = mortalityRaw;
+        gdpData = gdpRaw;
+        sanitationData = sanitationRaw;
+        healthInsuranceData = insuranceRaw;
 
-    initScatterplot();
-    initButterflyChart();
-    renderDynamicLegend();
-    scatterplotCountries.forEach(el => {
-        renderScatterplot(el);
-    })
-});
+        initScatterplot();
+        initButterflyChart();
+        renderDynamicLegend();
+        scatterplotCountries.forEach(el => {
+            renderScatterplot(el);
+        })
+    });
+}
+
+
+
+
+
 

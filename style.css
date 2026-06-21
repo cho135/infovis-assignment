@@ -314,3 +314,7 @@ footer {
     color: #ccc;
     transition: all 0.2s ease;
 }
+
+.hidden {
+    display: none !important;
+}
