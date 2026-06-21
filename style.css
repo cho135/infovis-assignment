@@ -4,7 +4,7 @@
 
 body {
     background-color: white;
-    margin: 0;
+    margin: 2rem 10% 0 10%;
     font-family: sans-serif;
 }
 
@@ -14,24 +14,36 @@ header {
     padding-right: 1rem;
 }
 
+header .subtitle {
+    font-style: italic;
+    color: gray;
+}
+
+footer {
+    margin-top: 5rem;
+    padding: 1rem;
+    text-align: center;
+}
+
 #layout {
-    display: grid;
-    grid-template-columns: 6fr 4fr;
-    grid-template-rows: 6fr 4fr;
     width: 100%;
     height: 80vh;
     margin: 0 auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 #sanitation-section {
     grid-column: 1;
     grid-row: 2;
     width: 100%;
-    height: 100%;
-    margin: 0 auto;
+    height: 60%;
+    margin: 3rem 0 0 0;
     padding: 0;
+}
+
+#sanitation-chart {
+    height: 90%;
 
     display: flex;
     align-items: center;
@@ -74,8 +86,19 @@ header {
 #butterfly-chart {
     grid-column: 2;
     grid-row: 1 / span 2;
-    margin: 0 auto;
-    padding: 2rem;
+    margin: 3rem 0 0 0;
+}
+
+#butterfly-chart-svg {
+    text-align: center;
+}
+
+.slidecontainer {
+    text-align: center;
+}
+
+.slidecontainer input {
+    width: 50%;
 }
 
 #sanitation-legend {
@@ -98,14 +121,12 @@ header {
 }
 
 #gdp-mortality-scatterplot {
-    grid-column: 1;
-    grid-row: 1;
-    margin: 0 auto;
-    padding: 0 2rem 0 0;
-
+    margin: 3rem 0 0 0;
+    padding: 0;
+    height: 60%;
     display: grid;
-    grid-template-columns: 9fr 1fr;
-    grid-template-rows: 3fr 7fr;
+    grid-template-columns: 8fr 2fr;
+    grid-template-rows: 2fr 8fr;
 }
 
 #scatter-section {
@@ -130,13 +151,17 @@ header {
     width: 100%;
 }
 
+#scatterplot-chart .chart-title {
+    font-weight: bold;
+}
+
 #line-container {
     stroke-width: 2px;
 }
 
 .controls {
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     align-items: center;

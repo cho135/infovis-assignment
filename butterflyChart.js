@@ -1,5 +1,5 @@
 let butterflySvg, butterflyWidth, butterflyHeight;
-const centerOffset = 50
+const centerOffset = 90
 const butterflyMargin = { top: 50, right: 30, bottom: 30, left: 30};
 let butterFlyDefaultCountries = ["Aruba", "Niger", "Saint Lucia", "Yemen", "Bangladesh"];
 let butterFlyData = []
@@ -65,7 +65,7 @@ function initButterflyChart() {
   const container = document.getElementById("butterfly-chart-svg");
   //ToDo: Fix container size loading
   butterflyWidth = container.clientWidth;
-  butterflyWidth = 600;
+  butterflyWidth = 1000;
   butterflyHeight = container.clientHeight;
   butterflyHeight = 800;
 
@@ -112,7 +112,7 @@ function initButterflyChart() {
   .attr("x", butterflyWidth / 2)
   .attr("y", 20)
   .attr("text-anchor", "middle")
-  .text("Percentage of population covered by health insurance vs child mortality rate");
+  .text("");
 
 
 
