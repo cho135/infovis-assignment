@@ -1,7 +1,6 @@
 let butterflySvg, butterflyWidth, butterflyHeight;
 const centerOffset = 90
 const butterflyMargin = { top: 50, right: 30, bottom: 30, left: 30};
-let butterFlyDefaultCountries = ["Aruba", "Niger", "Saint Lucia", "Yemen", "Bangladesh"];
 let butterFlyData = []
 let _xLeft, _xRight;
 
@@ -11,7 +10,6 @@ function updateButterflyChart(xLeft, xRight, updatedData) {
   .range([butterflyMargin.top, butterflyHeight - butterflyMargin.bottom])
   .padding(0.2);
 
-  // 3. Draw Left Bars
   butterflySvg.selectAll(".bar-left")
   .data(updatedData, d => d["Entity"])
   .join("rect")
@@ -22,7 +20,6 @@ function updateButterflyChart(xLeft, xRight, updatedData) {
   .attr("width", d => xLeft(0) - xLeft(d["Insurance"]))
   .attr("height", y.bandwidth());
 
-  // 4. Draw Right Bars
   butterflySvg.selectAll(".bar-right")
   .data(updatedData, d => d["Entity"])
   .join("rect")
@@ -33,7 +30,6 @@ function updateButterflyChart(xLeft, xRight, updatedData) {
   .attr("width", d => xRight(d["Mortality"]) - xRight(0))
   .attr("height", y.bandwidth());
 
-  // 5. Draw Central Labels
   butterflySvg.selectAll(".label")
   .data(updatedData, d => d["Entity"])
   .join("text")
@@ -126,7 +122,6 @@ function initButterflyChart() {
   .attr("width", butterflyWidth)
   .attr("height", butterflyHeight);
 
-
   //butterfly chart itself
   const xLeft = d3.scaleLinear()
   .domain([0, 100])
@@ -161,7 +156,6 @@ function initButterflyChart() {
   .attr("y", labelsYPosition)
   .text("Insurance Coverage in %");
 
-  // Right Axis (Mortality)
   const xAxisRight = d3.axisTop(xRight)
   .ticks(5);
 
