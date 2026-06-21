@@ -202,6 +202,7 @@ section .preset-container {
 
 .section-intro {
     margin: 0;
+    margin-bottom: 40px;
     padding: 0;
 }
 
