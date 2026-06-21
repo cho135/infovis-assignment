@@ -1,15 +1,3 @@
-// TODO:
-//  Sanitation statistic:
-//      hover function
-//      overflow
-//      "no data" legend tag
-//  Scatterplot:
-//      pfeilköpfe
-//      adaptable sample step size
-//  allgemein:
-//      kommentare, funktionenberschreibungen
-//
-
 function removeCountry(country) {
     const safeId = country.replace(/\s+/g, '');
 

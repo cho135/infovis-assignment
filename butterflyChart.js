@@ -116,7 +116,6 @@ function initButterflyChart() {
   const renderedData = butterFlyData.filter(d => d.Year === 2009).sort((a, b) => a.Mortality - b.Mortality)
 
   const container = document.getElementById("butterfly-chart-svg");
-  //ToDo: Fix container size loading
   butterflyWidth = container.clientWidth;
   butterflyWidth = 1000;
   butterflyHeight = container.clientHeight;
