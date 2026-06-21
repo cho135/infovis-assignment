@@ -7,6 +7,8 @@ const SANITATION_CATEGORIES = [
 ];
 
 let sanitationCountries = [];
+let currentZoomLevel = 100;
+
 function renderSanitationStatistic(country) {
     if (sanitationCountries.length >= MAX_VIEWS) {
         alert("Too many views open, close one");
@@ -80,7 +82,7 @@ function renderSanitationStatistic(country) {
         .range([0, plotWidth]);
 
     const yScaleSanitation = d3.scaleLinear()
-        .domain([0, 100])
+        .domain([0, currentZoomLevel])
         .range([plotHeight, 0]);
 
     nullpoint.append("g")
@@ -136,4 +138,20 @@ function renderSanitationStatistic(country) {
         .attr("stroke", "black")
         .attr("stroke-width", 1.5)
         .attr("d", mortalityLine);
+}
+
+function sanitationSetZoom(zoomLevel) {
+    currentZoomLevel = zoomLevel;
+
+    if (sanitationCountries.length > 0) {
+        console.log(zoomLevel);
+
+        sanitationCountries.forEach(safeId => {
+            const countryName = d3.select(`#san-tag-${safeId}`).text().replace(" ×", "");
+            sanitationCountries = sanitationCountries.filter(id => id !== safeId);
+            d3.select("#view-" + safeId).remove();
+
+            renderSanitationStatistic(countryName);
+        })
+    }
 }

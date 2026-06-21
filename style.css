@@ -107,6 +107,15 @@ footer {
     font-size: 14px;
 }
 
+.sanitation-zoom-controls button {
+    background-color: #5594d1;
+    border-radius: 5px;
+    border: none;
+    padding: 3px 7px;
+    color: white;
+    cursor: pointer;
+}
+
 .legend-item {
     display: flex;
     align-items: center;
@@ -171,7 +180,7 @@ footer {
     font-family: sans-serif;
 }
 
-.controls label {
+.controls label, #sanitation-legend label {
     font-size: 14px;
     font-weight: 600;
     color: #334155;
